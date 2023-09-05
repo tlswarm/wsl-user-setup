@@ -1,0 +1,10 @@
+#!/bin/bash
+read -p "Enter your full first name: " first_name
+first_name_lower=$(echo "$first_name" | tr '[:upper:]' '[:lower:]')
+read -p "Enter your full last name: " last_name
+last_name_lower=$(echo "$last_name" | tr '[:upper:]' '[:lower:]')
+fullname="$first_name_lower.$last_name_lower"
+echo "Fullname: $fullname"
+sudo adduser --force-badname "$fullname"
+sudo usermod -a -G sudo "$fullname"
+echo -e "[user]\ndefault=$fullname" | sudo tee /etc/wsl.conf
